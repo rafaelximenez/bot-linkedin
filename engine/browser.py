@@ -16,6 +16,7 @@ class Browser:
         chrome_options.add_argument("--profile-directory=Default")
 
         self.driver = webdriver.Chrome(options=chrome_options)
-    
+        self.driver.maximize_window()
+        
     def __del__(self):
         self.driver.close()
