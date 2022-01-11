@@ -4,6 +4,5 @@ text ="Olá, tudo bem?\n\nEu agradeço muito pela oportunidade, mas no momento e
 
 linkedin = Linkedin()
 linkedin.login()
-#linkedin.accept_connections()
+linkedin.accept_connections()
 linkedin.answer_job_invitations(text)
-input("Pressione qualquer tecla para sair")
