@@ -1,8 +1,31 @@
+import argparse
 from engine.linkedin import Linkedin
+from engine.services.respondRecruiters import RespondRecruiters
+import sys
+import json
 
-text ="Olá, tudo bem?\n\nEu agradeço muito pela oportunidade, mas no momento estou em um projeto muito importante para minha carreira.\n\nMas eu gostaria de manter o contato para troca de conhecimento, parceria e trabalho.\n\nObrigado pela oportunidade."
+def start(args):
+    linkedin = Linkedin()
+    driver = linkedin.login()
 
-linkedin = Linkedin()
-linkedin.login()
-linkedin.accept_connections()
-linkedin.answer_job_invitations(text)
+    responde_recruiters = RespondRecruiters(driver)
+
+    if args.responder_conexoes:
+        responde_recruiters.accept_connections()  
+    elif args.responder_recrutadores:
+        with open("config.json", "r") as f:
+            data = json.load(f)
+
+        text = data["responder_recrutadores"]["text"]
+        responde_recruiters.answer_job_invitations(text)
+
+    sys.exit()
+
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser(description="LinkedIn Automation Script")
+
+    parser.add_argument("--responder_conexoes", action="store_true", help="Answer connection invitations")
+    parser.add_argument("--responder_recrutadores", action="store_true", help="Answer job invitations")
+
+    args = parser.parse_args()
+    start(args)
