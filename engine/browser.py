@@ -14,12 +14,11 @@ class Browser:
 
         chrome_options.add_argument(r"user-data-dir={}".format(profile))
         chrome_options.add_argument("--profile-directory=Default")
-        chrome_options.add_argument("--headless")
-        chrome_options.add_argument("--no-sandbox")
-        chrome_options.add_argument("--mute-audio")
+        chrome_options.add_argument("--disable-popup-blocking")
+        chrome_options.add_experimental_option("excludeSwitches", ["enable-logging"])
+        #chrome_options.add_argument("--headless")
+        #chrome_options.add_argument("--no-sandbox")
+        #chrome_options.add_argument("--mute-audio")
 
-        self.driver = webdriver.Chrome(options=chrome_options)
+        self.driver = webdriver.Chrome(executable_path='C:\chromedriver.exe', options=chrome_options)
         self.driver.maximize_window()
-        
-    def __del__(self):
-        self.driver.close()
